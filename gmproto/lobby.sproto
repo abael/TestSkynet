@@ -1,0 +1,25 @@
+.mahjong {
+    type 0 : integer
+    name 1 : string
+}
+
+create 1 {
+    request {
+        type 0 : mahjong
+    }
+    response {
+        session 0 : integer
+        room 1: integer
+    }
+}
+
+join 2 {
+	request {
+		room 0 : integer
+	}
+	response {
+		session 0 : integer
+		host 1 : string
+		port 2 : integer
+	}
+}
