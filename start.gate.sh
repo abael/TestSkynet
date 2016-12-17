@@ -25,4 +25,4 @@ do
 	esac
 done
 
-$ROOT/cmake-build-debug/skynet/skynet $ROOT/server/config.gate
+$ROOT/build64_debug/skynet/skynet-src/skynet-src  $ROOT/server/config.gate

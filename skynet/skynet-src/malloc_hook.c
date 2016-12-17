@@ -24,7 +24,7 @@ static mem_data mem_stats[SLOT_SIZE];
 
 #ifndef NOUSE_JEMALLOC
 
-#include "jemalloc.h"
+#include <jemalloc.h>
 
 // for skynet_lalloc use
 #define raw_realloc je_realloc

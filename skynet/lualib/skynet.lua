@@ -1,3 +1,4 @@
+local d = "logger"
 local c = require "skynet.core"
 local tostring = tostring
 local tonumber = tonumber

@@ -1,4 +1,4 @@
-package.cpath = "cmake-build-debug/skynet/luaclib/?.so;cmake-build-debug/client/luaclib/?.so"
+package.cpath = "build64_debug/skynet/luaclib/?.so;build64_debug/client/luaclib/?.so"
 package.path = "client/?.lua;skynet/lualib/?.lua"
 
 local socket = require "socket"

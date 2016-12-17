@@ -1,6 +1,6 @@
 #!/bin/sh
 export ROOT=$(cd `dirname $0`; pwd)
-export BUILD_ROOT=$ROOT/cmake-build-debug
+export BUILD_ROOT=$ROOT/build64_debug
 
 export LUA_CPATH="$BUILD_ROOT/skynet/luaclib/?.so;$BUILD_ROOT/client/luaclib/?.so"
 export LUA_PATH="$ROOT/client/?.lua;$ROOT/skynet/lualib/?.lua"

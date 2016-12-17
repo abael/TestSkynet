@@ -1,4 +1,22 @@
- 
+
+
+gen_rule(name = 'gen_lualib-src',
+    outs=['*.bin'],
+    srcs=[],
+    deps = ['#pthread', '#dl', '#rt', '#m', '//skynet/3rd/jemalloc:jemalloc', '//skynet/3rd/lua:lua', '//skynet/service-src:gate,harbor,snlua,logger', ':skynet,cluster,bson,sharedata,stm,multicast,debugchannel,clientsocket,mongo,mysqlaux,socketdriver,crypt,memory,profile,netpack,seri'],
+    cmd='''set -f
+    cd $BUILD_DIR/skynet && ln -svf lualib-src luaclib && cd -
+    bash -c 'cd $BUILD_DIR/$DIR/  && for lib in lib*.so ; do so=$${lib:3} && ln -svf $${lib} $${so}; done && cd -' && wait 
+
+# Example: cd $DIR && ./autogen.sh --with-jemalloc-prefix=je_ --disable-valgrind && cd - && cp -prf $DIR/include  $BUILD_DIR/skynet/3rd/jemalloc/
+
+echo "CURR:$DIR, BUILD_DIR:$BUILD_DIR, BLADE_ROOT:$$(pwd), POSTACTION:/www/src/AAA/TestSkynet/BLADE_ROOT"
+echo "EXEC: /www/src/AAA/TestSkynet/BLADE_ROOT.sh    bin    skynet/skynet-src    /www/src/AAA/TestSkynet" && DIR=$DIR BUILD_DIR=$BUILD_DIR . /www/src/AAA/TestSkynet/BLADE_ROOT.sh    bin    skynet/skynet-src    /www/src/AAA/TestSkynet && echo "DONE"
+
+wait
+'''
+) 
+
 cc_library(
     name = 'skynet',
     incs = ['/www/src/gmsrv/skynet/lualib-src', '/www/src/gmsrv/skynet/lualib-src/include', '/www/src/gmsrv/skynet/3rd/lua', '/www/src/gmsrv/skynet/skynet-src'],
@@ -7,7 +25,7 @@ cc_library(
     defs=['_MT', '_GNU_SOURCE', '_REENTRANT'],
     export_incs=[],
     warning=[],
-    extra_cppflags=[],
+    extra_cppflags=['-fPIC', '-rdynamic', '-shared'],
     extra_linkflags=[],
     link_all_symbols=True,
     optimize='O2'
@@ -23,7 +41,7 @@ cc_library(
     defs=['_MT', '_GNU_SOURCE', '_REENTRANT'],
     export_incs=[],
     warning=[],
-    extra_cppflags=[],
+    extra_cppflags=['-fPIC', '-rdynamic', '-shared'],
     extra_linkflags=[],
     link_all_symbols=True,
     optimize='O2'
@@ -39,7 +57,7 @@ cc_library(
     defs=['_MT', '_GNU_SOURCE', '_REENTRANT'],
     export_incs=[],
     warning=[],
-    extra_cppflags=[],
+    extra_cppflags=['-fPIC', '-rdynamic', '-shared'],
     extra_linkflags=[],
     link_all_symbols=True,
     optimize='O2'
@@ -55,7 +73,7 @@ cc_library(
     defs=['_MT', '_GNU_SOURCE', '_REENTRANT'],
     export_incs=[],
     warning=[],
-    extra_cppflags=[],
+    extra_cppflags=['-fPIC', '-rdynamic', '-shared'],
     extra_linkflags=[],
     link_all_symbols=True,
     optimize='O2'
@@ -71,7 +89,7 @@ cc_library(
     defs=['_MT', '_GNU_SOURCE', '_REENTRANT'],
     export_incs=[],
     warning=[],
-    extra_cppflags=[],
+    extra_cppflags=['-fPIC', '-rdynamic', '-shared'],
     extra_linkflags=[],
     link_all_symbols=True,
     optimize='O2'
@@ -87,7 +105,7 @@ cc_library(
     defs=['_MT', '_GNU_SOURCE', '_REENTRANT'],
     export_incs=[],
     warning=[],
-    extra_cppflags=[],
+    extra_cppflags=['-fPIC', '-rdynamic', '-shared'],
     extra_linkflags=[],
     link_all_symbols=True,
     optimize='O2'
@@ -103,7 +121,7 @@ cc_library(
     defs=['_MT', '_GNU_SOURCE', '_REENTRANT'],
     export_incs=[],
     warning=[],
-    extra_cppflags=[],
+    extra_cppflags=['-fPIC', '-rdynamic', '-shared'],
     extra_linkflags=[],
     link_all_symbols=True,
     optimize='O2'
@@ -119,7 +137,7 @@ cc_library(
     defs=['_MT', '_GNU_SOURCE', '_REENTRANT'],
     export_incs=[],
     warning=[],
-    extra_cppflags=[],
+    extra_cppflags=['-fPIC', '-rdynamic', '-shared'],
     extra_linkflags=[],
     link_all_symbols=True,
     optimize='O2'
@@ -135,7 +153,7 @@ cc_library(
     defs=['_MT', '_GNU_SOURCE', '_REENTRANT'],
     export_incs=[],
     warning=[],
-    extra_cppflags=[],
+    extra_cppflags=['-fPIC', '-rdynamic', '-shared'],
     extra_linkflags=[],
     link_all_symbols=True,
     optimize='O2'
@@ -151,7 +169,7 @@ cc_library(
     defs=['_MT', '_GNU_SOURCE', '_REENTRANT'],
     export_incs=[],
     warning=[],
-    extra_cppflags=[],
+    extra_cppflags=['-fPIC', '-rdynamic', '-shared'],
     extra_linkflags=[],
     link_all_symbols=True,
     optimize='O2'
@@ -167,7 +185,7 @@ cc_library(
     defs=['_MT', '_GNU_SOURCE', '_REENTRANT'],
     export_incs=[],
     warning=[],
-    extra_cppflags=[],
+    extra_cppflags=['-fPIC', '-rdynamic', '-shared'],
     extra_linkflags=[],
     link_all_symbols=True,
     optimize='O2'
@@ -179,11 +197,11 @@ cc_library(
     name = 'crypt',
     incs = ['/www/src/gmsrv/skynet/lualib-src', '/www/src/gmsrv/skynet/lualib-src/include', '/www/src/gmsrv/skynet/3rd/lua', '/www/src/gmsrv/skynet/skynet-src'],
     srcs = ['lua-crypt.c', 'lsha1.c'],
-    deps = ['#pthread', '#dl', '//skynet/3rd/lua:lua', '//skynet/skynet-src:skynet'],
+    deps = ['#pthread', '#dl', '//skynet/3rd/lua:lua'],
     defs=['_MT', '_GNU_SOURCE', '_REENTRANT'],
     export_incs=[],
     warning=[],
-    extra_cppflags=[],
+    extra_cppflags=['-fPIC', '-rdynamic', '-shared'],
     extra_linkflags=[],
     link_all_symbols=True,
     optimize='O2'
@@ -199,7 +217,7 @@ cc_library(
     defs=['_MT', '_GNU_SOURCE', '_REENTRANT'],
     export_incs=[],
     warning=[],
-    extra_cppflags=[],
+    extra_cppflags=['-fPIC', '-rdynamic', '-shared'],
     extra_linkflags=[],
     link_all_symbols=True,
     optimize='O2'
@@ -215,7 +233,7 @@ cc_library(
     defs=['_MT', '_GNU_SOURCE', '_REENTRANT'],
     export_incs=[],
     warning=[],
-    extra_cppflags=[],
+    extra_cppflags=['-fPIC', '-rdynamic', '-shared'],
     extra_linkflags=[],
     link_all_symbols=True,
     optimize='O2'
@@ -231,7 +249,7 @@ cc_library(
     defs=['_MT', '_GNU_SOURCE', '_REENTRANT'],
     export_incs=[],
     warning=[],
-    extra_cppflags=[],
+    extra_cppflags=['-fPIC', '-rdynamic', '-shared'],
     extra_linkflags=[],
     link_all_symbols=True,
     optimize='O2'
@@ -247,7 +265,7 @@ cc_library(
     defs=['_MT', '_GNU_SOURCE', '_REENTRANT'],
     export_incs=[],
     warning=[],
-    extra_cppflags=[],
+    extra_cppflags=['-fPIC', '-rdynamic', '-shared'],
     extra_linkflags=[],
     link_all_symbols=True,
     optimize='O2'

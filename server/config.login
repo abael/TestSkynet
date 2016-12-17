@@ -1,5 +1,5 @@
 root       = "$ROOT/"
-build_root = root.."cmake-build-debug/"
+build_root = root.."build64_debug/"
 thread     = 8
 logger     = nil
 logpath    = root.."run"
